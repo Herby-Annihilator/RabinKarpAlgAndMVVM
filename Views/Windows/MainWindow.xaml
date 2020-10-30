@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:RabinKarpAlgorithm.ViewModels"
+        xmlns:cmd="clr-namespace:RabinKarpAlgorithm.Infrastructure.Commands"
         xmlns:local="clr-namespace:RabinKarpAlgorithm"
         mc:Ignorable="d"
         Title="{Binding Path=WindowTitle}" Height="450" Width="800">
@@ -13,17 +14,57 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="ExitBlyat'"></MenuItem>
+                <MenuItem Header="ExitBlyat'">
+                    <MenuItem.Command>
+                        <cmd:CloseApplicationCommand/>
+                    </MenuItem.Command>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Help"></MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
-                <TextBlock Text="DefaultText"></TextBlock>
+                <TextBlock Text="{Binding Path=Status}"></TextBlock>
             </StatusBarItem>
         </StatusBar>
         <Grid>
-            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="141*"></RowDefinition>
+                <RowDefinition Height="111*"></RowDefinition>
+                <RowDefinition Height="139*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <DockPanel>
+                <Label DockPanel.Dock="Top" Grid.Row="0" Content="Поле для редактирования исходного текста"
+                       HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <DockPanel DockPanel.Dock="Bottom">
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="Сохранить в файл" Margin="5,1"
+                            Command="{Binding SaveSourceTextToFileCommand}"/>
+                    <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Восстановить из файла" Margin="5, 1"
+                            Command="{Binding RestoreSourceTextFromFileCommand}"/>
+                </DockPanel>
+                <TextBox x:Name="textBoxSourceText" HorizontalAlignment="Stretch" Grid.Row="0" Margin="0, 0, 0, 0"
+                         TextWrapping="Wrap" ScrollViewer.CanContentScroll="True" 
+                         Text="{Binding Path=SourceText, UpdateSourceTrigger=PropertyChanged}"/>
+            </DockPanel>
+            <StackPanel Grid.Row="1">
+                <DockPanel  Margin="0, 10, 0, 0">
+                    <Label DockPanel.Dock="Left" VerticalAlignment="Top" Content="Введите здесь искомую строку" Margin="0, 4"/>
+                    <TextBox DockPanel.Dock="Right" x:Name="textBoxStringToFind"  VerticalAlignment="Top" MinWidth="500"
+                             Margin="4, 4" TextWrapping="Wrap" Text="{Binding StringToFind, UpdateSourceTrigger=PropertyChanged}"/>
+                </DockPanel>
+                <StackPanel Orientation="Horizontal" Margin="0, 10">
+                    <Label Content="Введите число повторений этой строки (i)" Margin="0, 0, 25, 0"/>
+                    <TextBox x:Name="textBoxNumberOfRepetitions" Width="100" 
+                             Text="{Binding NumberOfRepetitions, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Margin="5, 0" Content="{Binding TextBoxNumberOfRepetitionsStatus}" Foreground="Red"/>
+                </StackPanel>
+            </StackPanel>
+            <DockPanel Grid.Row="2">
+                <Button DockPanel.Dock="Top" HorizontalAlignment="Center" Content="Узнать результаты работы алгоритма Рабина-Карпа"
+                        Margin="5" Command="{Binding RabinKarpAlgorithmCommand}"/>
+                <TextBlock Background="#FFE0E0E0" Text="{Binding Result}"/>
+            </DockPanel>
+
         </Grid>
     </DockPanel>
 </Window>
