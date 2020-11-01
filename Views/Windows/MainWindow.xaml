@@ -62,7 +62,7 @@
             <DockPanel Grid.Row="2">
                 <Button DockPanel.Dock="Top" HorizontalAlignment="Center" Content="Узнать результаты работы алгоритма Рабина-Карпа"
                         Margin="5" Command="{Binding RabinKarpAlgorithmCommand}"/>
-                <TextBlock Background="#FFE0E0E0" Text="{Binding Result}"/>
+                <TextBox Background="#FFE0E0E0" Text="{Binding Result}" ScrollViewer.CanContentScroll="True" IsReadOnly="True"/>
             </DockPanel>
 
         </Grid>

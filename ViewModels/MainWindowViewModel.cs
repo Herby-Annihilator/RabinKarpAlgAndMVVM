@@ -6,7 +6,8 @@ using RabinKarpAlgorithm.ViewModels.Base;
 using RabinKarpAlgorithm.Infrastructure.Commands;
 using System.Windows;
 using System.IO;
-using MyLibrary.SpecialAlgorithms.RabinKarpAlgorithm;
+using MyLibrary.Extensions.StringExtensions;
+using RabinKarpAlgorithm.Models;
 
 namespace RabinKarpAlgorithm.ViewModels
 {
@@ -134,7 +135,7 @@ namespace RabinKarpAlgorithm.ViewModels
 			{
 				Result = "";
 				Status = "Выполнение....";
-				int[] occurrences = SourceText.FindSubstringOccurrences(StringToFind);
+				int[] occurrences = SourceText.SearchSubstringOccurrences_Modified(StringToFind, (ulong)countOfRepetitions);
 				if (occurrences.Length == 0)
 				{
 					Result = "Вхождений не найдено";
